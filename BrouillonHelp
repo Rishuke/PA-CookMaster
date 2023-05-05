@@ -62,3 +62,21 @@ F12 puis Inspectez elements sur le site Wicookin
  <img src="assets/Cest-bon-plat-dialo.png"  alt="Dialo" width="450" height="300">
  
  
+ 
+ 
+ OverviewSafety
+
+
+<h4 id="footerList2" class"f-ui-2"> Safety</h4>
+
+
+
+<p id="footer-txt">Copyright &copy; Your Website 2023</p>
+        	 <h5 id="footerList1" class"f-ui-2 "> NOS SERVICES</h5>
+        	 <p class="lead fw-normal text-dark-50 py-1 ">Chef à domicile</p>
+        	 <p class="lead fw-normal text-dark-50 py-1  ">Cours de cuisine</p>
+        	 <p class="lead fw-normal text-dark-50 py-1   ">Livraison gourmande <br> par un Chef</p>
+        	 <div class="xs:w-3-cols xs:mt-40 md:w-2-cols md:mt-0">
+        	 	<h5 id="footerList2" class"f-ui-2"> Safety</h5>
+ 
+ 
