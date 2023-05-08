@@ -23,9 +23,13 @@
                 <div class="container">
                     <h1>Inscription</h1>
                     <div class="message">
-                        <?php include_once('includes/message.php'); ?>
+                        <?php
+                            if(isset($_GET['message']) && !empty($_GET['message']) && isset($_GET['type'])){
+                            echo '<div class="alert alert-' . $_GET['type'] . '" role="alert">' . htmlspecialchars($_GET['message']) . '</div>';
+                            }
+                        ?>
                     </div>
-                    <form method="POST" action="verification_inscription.php" enctype="multipart/form-data">
+                    <form method="POST" action="verif_inscription.php" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">Votre nom</label>
                             <input type="text" name="nom"  class="form-control" required>
@@ -41,12 +45,10 @@
                             <input class="col-1" type="radio" name="sexe" value="F" required>
                             <label class="form-label">Féminin</label>
                         </div>
-                        <div class="mb-3">
-                        <label for="birthday">Date de naissance</label>
-
-                            <input type="date" id="birthday" name="birth"
-                                value="today" max="2018-12-31">
-                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="birthday">Date de naissance</label>
+                            <input type="date" id="birthday" name="birth">
+                        </div> -->
                         <div class="mb-3">
                             <label class="form-label">Votre statut</label>
                             <input class="col-1" type="radio"  name="statut" value="Client" required>
@@ -57,6 +59,10 @@
                             <label class="form-label">Formateur</label>
                             <input class="col-1" type="radio"  name="statut" value="Livreur" required>
                             <label class="form-label">Livreur</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Votre numéro de téléphone</label>
+                            <input type="text" name="phone"  class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Votre email</label>
