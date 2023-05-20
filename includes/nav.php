@@ -12,7 +12,7 @@
                                         if(isset($_SESSION['email']) ){
 
                                             $class = $title == 'Profile' ? 'active' : '';
-                                            echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="#!">Mon profil</a></li>';
+                                            echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="profile.php">Mon profil</a></li>';
 
                                             $class = $title == 'About' ? 'active' : '';
                                                     echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="#!">About</a></li>';
