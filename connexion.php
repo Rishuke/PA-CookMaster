@@ -25,7 +25,7 @@
                     <div class="message">
                         <?php include('includes/message.php'); ?>
                     </div>
-                    <form method="POST" action="verification_connexion.php" enctype="multipart/form-data">
+                    <form method="POST" action="verif_connexion.php" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">Votre email</label>
                             <input type="email" name="email" class="form-control" value="<?= isset($_COOKIE['email']) ? $_COOKIE['email'] : '' ?>">
