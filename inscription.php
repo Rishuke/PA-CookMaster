@@ -19,7 +19,7 @@
 
         ?>
            
-           <main>
+           <main class="pt-4 mt-5">
                 <div class="container">
                     <h1>Inscription</h1>
                     <div class="message">
