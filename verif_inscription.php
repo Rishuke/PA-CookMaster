@@ -1,8 +1,6 @@
 <?php
 
-if(isset($_GET['message']) && !empty($_GET['message']) && isset($_GET['type'])){
-    echo '<div class="alert alert-' . $_GET['type'] . '" role="alert">' . htmlspecialchars($_GET['message']) . '</div>';
-}
+include('includes/message.php');
 
 // Si l'email n'est pas vide, enregistrer cet email dans un cookie avec la fonction setcookie()
 if(isset($_POST['email']) && !empty($_POST['email'])){
@@ -34,19 +32,13 @@ if(strlen($_POST['mdp']) < 6 || strlen($_POST['mdp']) > 12){
 }
 
 // Connexion à la BDD
-try{
-	$bdd = new PDO('mysql:host=localhost:3306;dbname=wicookin.fr', 'root', 'root', 
-		[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-}
-catch(Exception $e){
-	die('Connexion échouée. Erreur : ' . $e->getMessage());
-}
+include("includes/db.php");
 
 
 // Vérifier que l'email n'est pas déjà utilisé
 
 // Sélectionner l'id des utilisateurs ayant le même email
-$q = 'SELECT num_mem FROM membre WHERE email = :email';
+$q = 'SELECT num_mem FROM membres WHERE email = :email';
 $req = $bdd->prepare($q);
 $req->execute(['email' => $_POST['email']]);
 
@@ -104,7 +96,7 @@ if($_FILES['image']['error'] != 4){ // un fichier a été envoyé
 
 
 // Requete préparée avec des noms de valeurs
-$q = 'INSERT INTO membre (nom_mem, pren_mem, sex_mem, statut, num_tel, email, password, image ) VALUES ( :nom_mem, :pren_mem, :sex_mem, :statut, :num_tel, :email, :password, :image )';
+$q = 'INSERT INTO membres (nom_mem, pren_mem, sex_mem, statut, num_tel, email, password, image ) VALUES ( :nom_mem, :pren_mem, :sex_mem, :statut, :num_tel, :email, :password, :image )';
 $req = $bdd->prepare($q);
 $succes = $req->execute([
 	'nom_mem' => $_POST['nom'],
