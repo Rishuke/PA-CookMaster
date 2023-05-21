@@ -33,7 +33,7 @@ include('includes/db.php');
 
 // On recherche l'utilisateur en base de données
 
-$q = 'SELECT num_mem FROM membres WHERE email = :email AND password = :password';
+$q = 'SELECT id_admin FROM admin WHERE email = :email AND password = :password';
 $req = $bdd->prepare($q);
 $req->execute([
 	'email' => $_POST['email'],
@@ -44,7 +44,7 @@ $results = $req->fetchAll(PDO::FETCH_ASSOC);
 
 
 if (empty($results)) {
-	header('location: connexion.php?message=Identifiants incorrects.&type=danger');
+	header('location:adminportal.php?message=Identifiants incorrects.&type=danger');
 	exit;
 }
 
@@ -57,10 +57,6 @@ $_SESSION['email'] = $_POST['email'];
 $_SESSION['mdp'] = $_POST['mdp'];
 
 
-
-
-
-
 // Redirection vers l'accueil
-header('location: index.php');
+header('location: admin_index.php');
 exit;

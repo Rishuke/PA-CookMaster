@@ -11,7 +11,7 @@
         <?php 
 
         //Navigation
-            include_once 'includes/nav.php';
+            include_once 'includes/admin_nav.php';
 
 
         //Header
@@ -21,14 +21,14 @@
            
            <main class="pt-4 mt-5">
                 <div class="container">
-                    <h1>Connexion</h1>
+                    <h1>Admin Connexion</h1>
                     <div class="message">
                         <?php include('includes/message.php'); ?>
                     </div>
-                    <form method="POST" action="verif_connexion.php" enctype="multipart/form-data">
+                    <form method="POST" action="verif_adminportal.php" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">Votre email</label>
-                            <input type="email" name="email" class="form-control" value="<?= isset($_COOKIE['email']) ? $_COOKIE['email'] : '' ?>">
+                            <input type="email" name="email" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Votre mot de passe</label>
