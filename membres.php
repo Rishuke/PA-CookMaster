@@ -27,7 +27,7 @@ if(!isset($_SESSION['email'])){
            
            <main class="pt-4 mt-5">
                 <div class="container">
-                    <h1>Utilisateurs</h1>
+                    <h1>Membres</h1>
                         <?php include('includes/db.php');
                         $q = 'SELECT num_mem, nom_mem, pren_mem, email, statut, confirm FROM membres';
                         $req = $bdd->query($q);

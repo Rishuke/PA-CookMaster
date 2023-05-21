@@ -27,6 +27,7 @@ if(!isset($_SESSION['email'])){
            
            <main class="pt-4 mt-5">
                 <div class="container">
+                <a href="form_ajout.php" class="btn btn-lg me-5 btn-outline-primary mb-4">Ajouter un administrateur</a>
                     <h1>Administrateurs</h1>
                         <?php include('includes/db.php');
                         $q = 'SELECT id_admin, nom_admin, pren_admin, email FROM admin';
