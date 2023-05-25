@@ -13,6 +13,9 @@
                                 $class = $title == 'Profile' ? 'active' : '';
                                 echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="admin_profile.php">Mon profil</a></li>';
 
+                                $class = $title == 'Dashboard' ? 'active' : '';
+                                echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="dashboard.php">Dashboard</a></li>';
+
                                 $class = $title == 'Membres' ? 'active' : '';
                                 echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="membres.php">Membres</a></li>';
 
