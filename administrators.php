@@ -82,7 +82,7 @@ if(!isset($_SESSION['email'])){
         <?php
         
             //Footer 
-            include_once 'includes/footer.php'
+            include_once 'includes/admin_footer.php'
 
         ?>
         
