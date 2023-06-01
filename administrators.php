@@ -22,8 +22,12 @@ if(!isset($_SESSION['email'])){
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <main class="pt-4 mt-5">
                 <div class="container">
-                <a href="form_ajout.php" class="btn btn-lg me-5 btn-outline-primary mb-4">Ajouter un administrateur</a>
+                <a href="admin_add.php" class="btn btn-lg me-5 btn-outline-primary mb-4">Add an administrateur</a>
                     <h1>Administrateurs</h1>
+                    <div class="message">
+                        <?php include('includes/message.php'); ?>
+
+                    </div>
                         <?php include('includes/db.php');
                         $q = 'SELECT id_admin, nom_admin, pren_admin, email FROM admin';
                         $req = $bdd->query($q);
@@ -66,10 +70,7 @@ if(!isset($_SESSION['email'])){
                             </tbody>
                         </table>
                 </div>
-                <div class="message">
-                        <?php include('includes/message.php'); ?>
-
-                </div>
+                
       
             </main>
 
