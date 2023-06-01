@@ -1,6 +1,12 @@
 
 <footer class="page-footer font-small  pt-4 mt-5 ">
     <div class="container">
+          <?php 
+            require_once dirname(__DIR__). DIRECTORY_SEPARATOR .'functions'. DIRECTORY_SEPARATOR . 'compteur.php';
+            ajouter_vue();
+            $vues = nombres_vues()
+          ?>
+       
       <div class="footer__wrapper">
         <div class="footer__col1">
           <div class="footer__logo">
