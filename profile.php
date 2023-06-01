@@ -18,10 +18,16 @@
 
   <main class="pt-4 mt-5">
                 <div class="container">
+                    <div class="message">
+                        <?php
+                            include('includes/message.php');
+                        ?>
+                    </div>
                     <?php
                         include('includes/db.php');
 
-                        $q = 'SELECT num_mem, nom_mem, pren_mem, email, sex_mem, statut, image FROM membres WHERE email = :email';
+
+                        $q = 'SELECT num_mem, nom_mem, pren_mem, email, sex_mem, statut, num_tel, image FROM membres WHERE email = :email';
                         $req = $bdd->prepare($q);
                         $req->execute([
                                         'email' => $_SESSION['email']
@@ -51,10 +57,13 @@
                         <h3>Sexe</h3>
                         <p><?= ($result['sex_mem']=='M')?'<td>Masculin</td>' : '<td>Féminin</td>' ?></p>
 
+                        <h3>Téléphone</h3>
+                        <p><?= $result['num_tel'] ?></p>
+
                         <h3>Statut</h3>
                         <p><?= $result['statut'] ?></p>
                         <?php
-                            echo '<a href="form_modification.php?id=' . $result['num_mem'] . '" class="btn btn-sm me-2 btn-primary">Modifier</a>';
+                            echo '<a href="members_info_modif.php?id=' . $result['num_mem'] . '" class="btn btn-sm me-2 btn-primary">Modify</a>';
                     ?>
                 </div>
             </main>
