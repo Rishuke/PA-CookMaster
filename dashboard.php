@@ -38,26 +38,22 @@
 
 <!DOCTYPE html>
 <html lang="en">
+ <!-- Head Section -->
 
-    <?php
-        $title='Dashboard';
-        include_once 'includes/head.php';
-    ?>
-
-    <body>
-         
-        <?php 
-
-        //Navigation
-            include_once 'includes/admin_nav.php';
+ <?php include ('includes/head.php'); ?>
+ <link rel="stylesheet" href="./css/home.css">
+ <!-- End Head Section -->
 
 
-        //Header
-            include_once 'includes/header.php';
+<body>
+  <!-- Nav Section -->
+  <?php include ('includes/admin_nav.php'); ?>
+  <!-- End Nav Section -->
+ 
 
-        ?>
-           
-           <main class="pt-4 mb-5">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <main class="pt-4 mb-5">
+    <div class="container">
                 <div class="column">
                     <div class="row">
                         <div class="col-md-4">
@@ -115,22 +111,22 @@
                         <?php endif; ?>
                     </div>
                     
-                </div>
-            </main>
-    
-        
-        <?php
-        
-            //Footer 
-            include_once 'includes/admin_footer.php'
+                </div>            
+    </div>
+</main>
 
-        ?>
-        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+  <!-- Footer Section -->
+
+  <?php include ('includes/footer.php'); ?>
+  
+   <!-- End Footer Section -->
+
+  <!-- aos script -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- custom script -->
+  <script src="./main.js"></script>
+</body>
+
 </html>
 
 

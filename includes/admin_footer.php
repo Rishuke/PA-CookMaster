@@ -1,14 +1,5 @@
 <footer class="page-footer font-small  pt-4 mt-5 ">
-	<div class = "row" >
-		<div class="col-md-4">
-			<?php 
-				require_once dirname(__DIR__). DIRECTORY_SEPARATOR .'functions'. DIRECTORY_SEPARATOR . 'compteur.php';
-				ajouter_vue();
-				$vues = nombres_vues()
-			?>
-			Il y a <?= $vues ?> visiteur<?php ($vues > 1) ? 's': ''; ?> qui ont visité le site.
-		</div>
-	</div>
+	
         	<div class="endFooter-desktop">
         		<div class="links">
         			<div class="i-b">

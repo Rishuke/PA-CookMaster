@@ -24,9 +24,7 @@
                     <h1>Inscription</h1>
                     <div class="message">
                         <?php
-                            if(isset($_GET['message']) && !empty($_GET['message']) && isset($_GET['type'])){
-                            echo '<div class="alert alert-' . $_GET['type'] . '" role="alert">' . htmlspecialchars($_GET['message']) . '</div>';
-                            }
+                            include('includes/message.php')
                         ?>
                     </div>
                     <form method="POST" action="verif_inscription.php" enctype="multipart/form-data">

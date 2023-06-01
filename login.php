@@ -12,7 +12,7 @@
 
 <body>
   <!-- Nav Section -->
-  <?php include 'includes/admin_nav.php'; ?>
+  <?php include 'includes/nav.php'; ?>
   <!-- End Nav Section -->
   <section id="form" data-aos="fade-down">
     <div class="container">
@@ -25,7 +25,7 @@
           ?>
         </div>
       <div class="form__wrapper">
-        <form method="POST" action="adminportal_verif.php" enctype="multipart/form-data">
+        <form method="POST" action="login_verif.php" enctype="multipart/form-data">
           
           <div class="form__group">
             <label for="email">Email</label>
