@@ -1,100 +1,125 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-darklight">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="admin_index.php">Wicookin</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="admin_index.php">Home</a></li>
+<link rel="stylesheet" href="css/nav.css">
+<div class="nav">
+  <div class="container">
+    <div class="nav__wrapper">
+      <a href="index.php" class="logo">
+          <img src="images/logo_wicookin.png" alt="Wicookin">
+      </a>
+      <nav>
+        <div class="nav__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-menu">
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+        </div>
+        <div class="nav__bgOverlay"></div>
+        <ul class="nav__list">
+          <div class="nav__close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-x">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+          <div class="nav__list__wrapper">
+
+                  <?php 
+
+                      if(isset($_SESSION['email'])){
+
+                        echo '<li><a class="nav__link" href="admin_index.php">Home</a></li>';
+                        echo '<li><a class="nav__link" href="dashboard.php">Dashboard</a></li>';
+                        echo '<li><a class="nav__link" href="members.php">Membres</a></li>';
+                        echo '<li><a class="nav__link" href="administrators.php">Administrators</a></li>';
                         
-                
-                        <?php 
-                            if(isset($_SESSION['email']) ){
+                        
+                        include('includes/db.php');
 
-                                $class = $title == 'Profile' ? 'active' : '';
-                                echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="admin_profile.php">Mon profil</a></li>';
+                        $q = 'SELECT  nom_mem, pren_mem, image FROM membres WHERE email = :email';
+                        $req = $bdd->prepare($q);
+                        $req->execute([
+                                        'email' => $_SESSION['email']
+                                    ]);
 
-                                $class = $title == 'Membres' ? 'active' : '';
-                                echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="membres.php">Membres</a></li>';
-
-                                $class = $title == 'Administrateurs' ? 'active' : '';
-                                echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="administrators.php">Administrateurs</a></li>';
-
-                                $class = $title == 'About' ? 'active' : '';
-                                        echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="#!">About</a></li>';
-
-                                        echo '<li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                                    <li><hr class="dropdown-divider" /></li>
-                                                    <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                                    <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                                                </ul>
-                                            </li>
-                                    </ul>';
-
-                                    echo '<form class="d-flex">
-                                        <button class="btn btn-outline-dark" type="submit">
-                                            <i class="bi-cart-fill me-1"></i>
-                                            Mon panier   
-                                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                        </button>
-                                        
-
-                                        
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                        
-                                        <button class="btn btn-outline-dark">
-                                            <a href="logout.php"> 
-                                                Deconnexion
-                                            </a>
-                                        </button>
-                                    </form>';
-                            } else{
-                                        $class = $title == 'About' ? 'active' : '';
-                                        echo '<li class="nav-item"><a class="nav-link ' . $class . '" href="#!">About</a></li>';
-
-                                        echo '<li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                                    <li><hr class="dropdown-divider" /></li>
-                                                    <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                                    <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                                                </ul>
-                                            </li>
-                                    </ul>';
-
-                                    echo '<form class="d-flex">
-                                        <button class="btn btn-outline-dark" type="submit">
-                                            <i class="bi-cart-fill me-1"></i>
-                                            Mon panier   
-                                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                        </button>
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                       
-                                        
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                        
-                                        <button class="btn btn-outline-dark">
-                                            <a href="adminportal.php"> 
-                                                Connexion
-                                            </a>
-                                        </button>
-                                    </form>';
-                            }
-
+                        $result = $req->fetch(PDO::FETCH_ASSOC); 
                         ?>
-                    </ul>               
-                </div>                
-            </div>
-        </nav>
+                      
+                            <img class="user-pic" src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil" onclick="toggleMenu()">
+
+                            <div class="sub-menu-wrap" id="subMenu"> 
+                              <div class="sub-menu"> 
+                                <div class="user-info">
+                                  <img src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
+                                  <h3>
+                                    <?= $result['nom_mem'] . ' ' . $result['pren_mem'] ?>
+                                  </h3>
+                                  <hr>
+                                  <a href="profile_admin.php" class="sub-menu-link">
+                                    <img src="images/profile.png" alt="">
+                                    <p>View Profile</p>
+                                    <span>></span>
+                                  </a>
+
+                                  <a href="#" class="sub-menu-link">
+                                    <img src="images/setting.png" alt="">
+                                    <p>Settings & Privacy</p>
+                                    <span>></span>
+                                  </a>
+
+                                  <a href="#" class="sub-menu-link">
+                                    <img src="images/help.png" alt="">
+                                    <p>Help & Support</p>
+                                    <span>></span>
+                                  </a>
+
+                                  <a href="logout.php" class="sub-menu-link">
+                                    <img src="images/logout.png" alt="">
+                                    <p>Logout</p>
+                                    <span>></span>
+                                  </a>
+
+                            
+                                </div>
+                              </div>
+                            </div>
+
+                    <?php                
+                        
+
+                      }else{
+
+
+                        echo '<li><a class="nav__link" href="index.php">Home</a></li>';
+                        echo '<li><a class="nav__link" href="menu.php">Menu</a></li>';
+                        echo '<li><a class="nav__link" href="about.php">About</a></li>';
+                        echo '<li><a class="nav__link" href="contact.php">Contact</a></li>';
+                        echo '<li><a href="adminportal.php" class="btn primary-btn">Login</a></li>';
+                       
+
+
+                      }
+
+                  ?>
+                  
+          </div>
+        </ul>
+      </nav>
+    </div>                   
+  </div>  
+</div>
+
+<script>
+
+  let subMenu = document.getElementById("subMenu");
+
+  function toggleMenu(){
+    subMenu.classList.toggle("open-menu");
+  }
+</script>
+
+
+  

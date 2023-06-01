@@ -4,28 +4,23 @@ if(!isset($_SESSION['email'])){
 	exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+ <!-- Head Section -->
 
-    <?php
-        $title='adminbres';
-        include_once 'includes/head.php';
-    ?>
-
-    <body>
-         
-        <?php 
-
-        //Navigation
-            include_once 'includes/admin_nav.php';
+ <?php include ('includes/head.php'); ?>
+ <link rel="stylesheet" href="./css/home.css">
+ <!-- End Head Section -->
 
 
-        //Header
-            include_once 'includes/header.php';
+<body>
+  <!-- Nav Section -->
+  <?php include ('includes/admin_nav.php'); ?>
+  <!-- End Nav Section -->
 
-        ?>
-           
-           <main class="pt-4 mt-5">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <main class="pt-4 mt-5">
                 <div class="container">
                 <a href="form_ajout.php" class="btn btn-lg me-5 btn-outline-primary mb-4">Ajouter un administrateur</a>
                     <h1>Administrateurs</h1>
@@ -77,18 +72,19 @@ if(!isset($_SESSION['email'])){
                 </div>
       
             </main>
-    
-        
-        <?php
-        
-            //Footer 
-            include_once 'includes/footer.php'
 
-        ?>
-        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+  <!-- Footer Section -->
+
+  <?php include ('includes/footer.php'); ?>
+  
+   <!-- End Footer Section -->
+
+  <!-- aos script -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- custom script -->
+  <script src="./main.js"></script>
+</body>
+
 </html>
+
+

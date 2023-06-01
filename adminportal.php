@@ -1,55 +1,58 @@
+<?php 
+      session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+ <!-- Head Section -->
 
-    <?php
-        $title='Connexion';
-        include_once 'includes/head.php';
-    ?>
-
-    <body>
-         
-        <?php 
-
-        //Navigation
-            include_once 'includes/admin_nav.php';
+ <?php include  'includes/head.php'; ?>
+ <!-- End Head Section -->
 
 
-        //Header
-            include_once 'includes/header.php';
+<body>
+  <!-- Nav Section -->
+  <?php include 'includes/admin_nav.php'; ?>
+  <!-- End Nav Section -->
+  <section id="form" data-aos="fade-down">
+    <div class="container">
+      <h3 class="form__title">
+        Login
+      </h3>
+      <div class="message">
+         <?php
+           include('includes/message.php');
+          ?>
+        </div>
+      <div class="form__wrapper">
+        <form method="POST" action="adminportal_verif.php" enctype="multipart/form-data">
+          
+          <div class="form__group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form__group">
+            <label for="subject">Password</label>
+            <input type="password" id="subject" name="mdp" required>
+          </div>
+          
+          <button type="submit" class="btn primary-btn">Log in</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  
 
-        ?>
-           
-           <main class="pt-4 mt-5">
-                <div class="container">
-                    <h1>Admin Connexion</h1>
-                    <div class="message">
-                        <?php include('includes/message.php'); ?>
-                    </div>
-                    <form method="POST" action="verif_adminportal.php" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label class="form-label">Votre email</label>
-                            <input type="email" name="email" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Votre mot de passe</label>
-                            <input type="password" name="mdp" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Se connecter</button>
-                    </form>
-                </div>
-        </main>
-    
-        
-        <?php
-        
-            //Footer 
-            include_once 'includes/footer.php'
+  <!-- Footer Section -->
 
-        ?>
-        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
+  <?php include 'includes/footer.php'; ?>
+  
+   <!-- End Footer Section -->
+
+  <!-- aos script -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- custom script -->
+  <script src="./main.js"></script>
+</body>
+
+</php>

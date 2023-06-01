@@ -10908,3 +10908,15 @@ footer {
 
 }
 
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px; /* Définissez la largeur souhaitée pour le conteneur */
+  height: 300px; /* Définissez la hauteur souhaitée pour le conteneur */
+}
+
+.image-container img {
+  max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
+  max-height: 100%; /* Assurez-vous que l'image ne dépasse pas la hauteur du conteneur */
+}
