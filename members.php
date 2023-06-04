@@ -48,7 +48,7 @@
                                     echo  '<td>'. $user['statut'] . '</td>';
                                     echo  ($user['confirm']==1)?'<td>OUI</td>' : '<td>NON <a href="confirm.php?id=' . $user['num_mem'] . '" class="btn btn-sm me-2 btn-success">Confirmer</a></td>';
                                     echo '<td>';
-                                    echo '<a href="form_modification.php?id=' . $user['num_mem'] . '" class="btn btn-sm me-2 btn-primary">Modifier</a>';
+                                    echo '<a href="members_info_modif.php?id=' . $user['num_mem'] . '" class="btn btn-sm me-2 btn-primary">Modifier</a>';
                                     echo '<a href="delete.php?id=' . $user['num_mem'] . '" class="btn btn-sm me-2 btn-danger">Supprimer</a>';
                                     echo '<a href="banish.php?id=' . $user['num_mem'] . '" class="btn btn-sm me-2 btn-danger">Bannir</a>';
                                     echo '</td>';

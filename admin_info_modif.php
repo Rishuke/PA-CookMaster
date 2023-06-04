@@ -30,7 +30,7 @@ else{
 
 <body>
   <!-- Nav Section -->
-  <?php include ('includes/nav.php'); ?>
+  <?php include ('includes/admin_nav.php'); ?>
   <!-- End Nav Section -->
   <section id="form" data-aos="fade-down">
     <div class="container">
