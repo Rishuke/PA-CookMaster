@@ -108,7 +108,7 @@ $succes = $req->execute([
 	'num_tel' => $_POST['phonenumber'],
 	'email' => $_POST['email'],
 	'password' => hash('sha512', $_POST['password']),
-	'image' => isset($filename) ? $filename : 'pp_neutre.jpg',
+	'image' => isset($filename) ? $filename : '',
 ]);
 
 if(!$succes){

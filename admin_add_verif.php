@@ -105,7 +105,7 @@
           'sex_admin' => $_POST['sexe'],
           'email' => $_POST['email'],
           'password' => hash('sha512', $_POST['password']),
-          'image' => isset($filename) ? $filename : 'pp_neutre.jpg',
+          'image' => isset($filename) ? $filename : '',
       ]);
       
       if(!$succes){

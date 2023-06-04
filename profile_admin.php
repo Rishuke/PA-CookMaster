@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start(); 
+    if( !isset($_SESSION['email'])){
+        header('location: admin_index.php');
+        exit;
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +13,7 @@
     include ('includes/head.php'); 
 ?>
  <link rel="stylesheet" href="./css/home.css">
+ <link rel="stylesheet" href="./css/profil.css">
  <!-- End Head Section -->
 
 
@@ -21,7 +27,7 @@
             <?php
                 include('includes/db.php');
 
-                $q = 'SELECT id_admin, nom_admin, pren_admin, email, sex_admin FROM admin WHERE email = :email';
+                $q = 'SELECT id_admin, nom_admin, pren_admin, email, sex_admin, image FROM admin WHERE email = :email';
                 $req = $bdd->prepare($q);
                 $req->execute([
                                 'email' => $_SESSION['email']
@@ -31,11 +37,8 @@
                 ?>
 
                 <h3>Image de profil</h3>
-                <img style = "display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    width: 300px;
-                                    height: 300px" src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
+                <div class="main-profile">
+                        <img src="uploads/<?= ($result['image'] ? $result['image'] : 'pp_neutre.jpg') ?>" alt="Image de profil">
 
                 <h3>Nom</h3>
                 <p><?= $result['nom_admin'] ?></p>	
@@ -49,14 +52,14 @@
                 <h3>Sexe</h3>
                 <p><?= ($result['sex_admin']=='M')?'<td>Masculin</td>' : '<td>Féminin</td>' ?></p>
                 <?php
-                    echo '<a href="form_modification.php?id=' . $result['id_admin'] . '" class="btn btn-sm me-2 btn-primary">Modifier</a>';
+                    echo '<a href="admin_info_modif.php?id=' . $result['id_admin'] . '" class="btn btn-sm me-2 btn-primary">Modifier</a>';
             ?>
         </div>
     </main>
 
   <!-- Footer Section -->
 
-  <?php include ('includes/footer.php'); ?>
+  <?php include ('includes/admin_footer.php'); ?>
   
    <!-- End Footer Section -->
 

@@ -3,14 +3,14 @@ session_start();
 include ('includes/db.php');
 if(isset ($_GET['id']) && !empty ($_GET['id'])){
     $getId=$_GET['id'];
-    $req='SELECT id, nom, prenom, email, sexe, statut FROM utilisateur WHERE id= ?';
+    $req='SELECT id_admin, nom_admin, pren_admin, email FROM admin WHERE id_admin= ?';
     $recupUser = $bdd->prepare($req);
     $recupUser-> execute(array($getId));
     if ($recupUser ->rowCount()>0){
         $user = $recupUser->fetch(PDO::FETCH_ASSOC);
       
     }else{
-        echo "Aucun membre n'a été trouvé";
+        echo "Aucun adminbre n'a été trouvé";
     }
 }
 
@@ -43,21 +43,21 @@ else{
           ?>
       </div>
       <div class="form__wrapper">
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" action="admin_info_update.php" enctype="multipart/form-data">
           <div class="form__group">
+          <input type="hidden" name="id"  class="form-control" value="<?=$user['id_admin'];?>">
             <label>First Name</label>
-            <input type="text" name="firstname">
+            <input type="text" name="firstname" value="<?=$user['pren_admin']?>">
           </div>
           <div class="form__group">
             <label>Last Name</label>
-            <input type="text" name="lastname">
+            <input type="text" name="lastname" value="<?=$user['nom_admin']?>">
           </div>
           <div class="form__group">
             <label>Email</label>
-            <input type="email" name="email">
+            <input type="email" name="email" value="<?=$user['email']?>">
           </div>
-         
-          <button type="submit" class="btn primary-btn">Add</button>
+          <button type="submit" class="btn primary-btn">Update</button>
         </form>
       </div>
     </div>
@@ -66,7 +66,7 @@ else{
 
   <!-- Footer Section -->
 
-  <?php include 'includes/footer.php'; ?>
+  <?php include 'includes/admin_footer.php'; ?>
   
    <!-- End Footer Section -->
 

@@ -79,7 +79,7 @@ else{
 
   <!-- Footer Section -->
 
-  <?php include 'includes/footer.php'; ?>
+  <?php include 'includes/admin_footer.php'; ?>
   
    <!-- End Footer Section -->
 

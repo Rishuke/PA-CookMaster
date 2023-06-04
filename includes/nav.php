@@ -47,12 +47,12 @@
                         $result = $req->fetch(PDO::FETCH_ASSOC); 
                         ?>
                       
-                            <img class="user-pic" src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil" onclick="toggleMenu()">
+                            <img class="user-pic" src="uploads/<?= ($result['image']? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil" onclick="toggleMenu()">
 
                             <div class="sub-menu-wrap" id="subMenu"> 
                               <div class="sub-menu"> 
                                 <div class="user-info">
-                                  <img src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
+                                  <img src="uploads/<?= ($result['image']? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
                                   <h3>
                                     <?= $result['nom_mem'] . ' ' . $result['pren_mem'] ?>
                                   </h3>

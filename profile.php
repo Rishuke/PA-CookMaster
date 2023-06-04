@@ -8,6 +8,7 @@
     include ('includes/head.php'); 
 ?>
  <link rel="stylesheet" href="./css/home.css">
+ <link rel="stylesheet" href="./css/profil.css">
  <!-- End Head Section -->
 
 
@@ -23,6 +24,8 @@
                             include('includes/message.php');
                         ?>
                     </div>
+
+                    
                     <?php
                         include('includes/db.php');
 
@@ -36,13 +39,12 @@
                         $result = $req->fetch(PDO::FETCH_ASSOC); 
                         ?>
 
+                    
                         <h3>Image de profil</h3>
                       
-                            <img style = "display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    width: 300px;
-                                    height: 300px" src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
+                        <div class="main-profile">
+                        <img src="uploads/<?= ($result['image'] ? $result['image'] : 'pp_neutre.jpg') ?>" alt="Image de profil">
+                        </div>
                         
                         
                         <h3>Nom</h3>
@@ -63,8 +65,8 @@
                         <h3>Statut</h3>
                         <p><?= $result['statut'] ?></p>
                         <?php
-                            echo '<a href="members_info_modif.php?id=' . $result['num_mem'] . '" class="btn btn-sm me-2 btn-primary">Modify</a>';
-                    ?>
+                           echo '<a href="members_info_modif.php?id=' . $result['num_mem'] . '" class="btn btn-sm me-2 btn-primary">Modify</a>';
+                    ?> 
                 </div>
             </main>
 

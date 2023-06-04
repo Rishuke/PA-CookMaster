@@ -39,7 +39,7 @@
                         
                         include('includes/db.php');
 
-                        $q = 'SELECT  nom_mem, pren_mem, image FROM membres WHERE email = :email';
+                        $q = 'SELECT  nom_admin, pren_admin, image FROM admin WHERE email = :email';
                         $req = $bdd->prepare($q);
                         $req->execute([
                                         'email' => $_SESSION['email']
@@ -48,14 +48,14 @@
                         $result = $req->fetch(PDO::FETCH_ASSOC); 
                         ?>
                       
-                            <img class="user-pic" src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil" onclick="toggleMenu()">
+                            <img class="user-pic" src="uploads/<?= ($result['image']? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil" onclick="toggleMenu()">
 
                             <div class="sub-menu-wrap" id="subMenu"> 
                               <div class="sub-menu"> 
                                 <div class="user-info">
-                                  <img src="uploads/<?= (isset($result['image'])? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
+                                  <img src="uploads/<?= ($result['image']? $result['image']:'pp_neutre.jpg')?>" alt="Image de profil">
                                   <h3>
-                                    <?= $result['nom_mem'] . ' ' . $result['pren_mem'] ?>
+                                    <?= $result['nom_admin'] . ' ' . $result['pren_admin'] ?>
                                   </h3>
                                   <hr>
                                   <a href="profile_admin.php" class="sub-menu-link">
