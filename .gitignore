@@ -1,3 +1,0 @@
-# Ignore a file with the specified name.
-# Scoped to the 'database' subfolder.
-/database/settings.php
