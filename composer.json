@@ -1,0 +1,16 @@
+{
+    "name": "spero/wicookin.fr",
+    "autoload": {
+        "psr-4": {
+            "Spero\\WicookinFr\\": "src/",
+            "Router\\": "routes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Spero Kotin",
+            "email": "kotin.spero98@gmail.com"
+        }
+    ],
+    "require": {}
+}
