@@ -1,6 +1,5 @@
-<?php 
+<?php
 
 require '../vendor/autoload.php';
 
-
-// require_once('template/homepage.php');
+echo $_GET['url'];
