@@ -3,7 +3,9 @@
     "autoload": {
         "psr-4": {
             "Spero\\Wicookin\\": "src/",
-            "Router\\": "routes/"
+            "Router\\": "routes/",
+            "App\\": "app/",
+            "Database\\": "database/"
 
         }
     },

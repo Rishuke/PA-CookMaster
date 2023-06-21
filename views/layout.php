@@ -1,3 +1,6 @@
+<?php 
+    // session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -23,10 +26,10 @@
   <!-- Vendor CSS Files -->
   <link href="<?= ACCESS?>vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="<?= ACCESS?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?= ACCESS?>/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?= ACCESS?>/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="<?= ACCESS?>/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="<?= ACCESS?>/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="<?= ACCESS?>vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="<?= ACCESS?>vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="<?= ACCESS?>vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="<?= ACCESS?>vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="<?= ACCESS . 'css' . DIRECTORY_SEPARATOR . 'style.css' ?>" rel="stylesheet">

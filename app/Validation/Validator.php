@@ -53,8 +53,15 @@ class Validator {
         }
     }
 
-    private function getErrors(): ?array
+    public function hasErrors(): bool
+    {
+        return !empty($this->errors);
+    }
+
+    public function getErrors(): ?array
     {
         return $this->errors;
     }
+
+    
 }
