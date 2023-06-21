@@ -1,9 +1,12 @@
 {
-    "name": "spero/wicookin.fr",
+    "name": "spero/wicookin",
     "autoload": {
         "psr-4": {
-            "Spero\\WicookinFr\\": "src/",
-            "Router\\": "routes/"
+            "Spero\\Wicookin\\": "src/",
+            "Router\\": "routes/",
+            "App\\": "app/",
+            "Database\\": "database/"
+
         }
     },
     "authors": [
