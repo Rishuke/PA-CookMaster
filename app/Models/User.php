@@ -33,5 +33,22 @@ class User extends Model {
     return $result ?: null;
 }
 
+public function authenticate(string $email, string $password): ?User
+    {
+        $user = $this->getByEmail($email);
+
+        if (!$user) {
+            return null;
+        }
+
+        $hashedPassword = $user->password;
+
+        if (!password_verify($password, $hashedPassword)) {
+            return null;
+        }
+
+        return $user;
+    }
+
     
 }

@@ -1,3 +1,4 @@
+
 <section id="" class="contact mt-5 pt-5">
       <div class="container">
 
@@ -31,14 +32,14 @@
               
               <div class="col-md-6 form-group mt-3 mt-md-0">
                   <label>Sexe</label>
-                  <select name="gender" class="form-control">
+                  <select name="gender" class="form-control" required>
                       <option selected disabled>Votre genre</option>
                       <option value="Male">Masculin</option>
                       <option value="Female">Féminin</option>
                   </select>
               </div>
               
-              <div class="col-md-6 form-group mt-3 mt-md-0">
+              <div class="col-md-6 form-group mt-3 mt-md-0" required>
                   <label>Statut</label>
                   <select name="status" class="form-control">
                       <option selected disabled>Votre rôle</option>

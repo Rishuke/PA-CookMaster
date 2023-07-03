@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  let forms = document.querySelectorAll('.php-email-form');
+  let forms = document.querySelectorAll('.js-php-email-form');
 
   forms.forEach( function(e) {
     e.addEventListener('submit', function(event) {
@@ -79,7 +79,7 @@
 
   function displayError(thisForm, error) {
     thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.error-message').innerHTML = error;
+    thisForm.querySelector('.error-message').innerHTML = "Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer plus tard."";
     thisForm.querySelector('.error-message').classList.add('d-block');
   }
 

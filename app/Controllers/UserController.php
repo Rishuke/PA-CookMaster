@@ -91,14 +91,53 @@ class UserController extends Controller {
 
     public function loginPost()
     {
-        // Logique de connexion de l'utilisateur
+        $validator = new Validator($_POST);
+        $validator->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        if ($validator->hasErrors()) {
+            $_SESSION['errors'] = $validator->getErrors();
+            return header('Location: /login');
+        }
+
+        $user = new User($this->getDB());
+        $authenticatedUser = $user->authenticate($_POST['email'], $_POST['password']);
+
+        if (!$authenticatedUser) {
+            $_SESSION['errors'][] = ['credentials' => 'Les informations d\'identification sont incorrectes.'];
+            return header('Location: /login');
+        }
+
+        // Authentification réussie, enregistrer les détails de l'utilisateur dans la session
+        $_SESSION['user'] = [
+            'id' => $authenticatedUser->id,
+            'email' => $authenticatedUser->email,
+            // ... autres détails de l'utilisateur ...
+        ];
+
+        return header('Location: /dashboard');
     }
+    
 
     public function logout()
     {
         session_destroy();
 
         return header('Location: /');
+    }
+
+
+    public function dashboard()
+    {
+        // Vérifier si l'utilisateur est connecté
+        if (!isset($_SESSION['user'])) {
+            return header('Location: /login');
+        }
+
+        // L'utilisateur est connecté, afficher la vue du dashboard
+        return $this->view('home.dashboard');
     }
     
     

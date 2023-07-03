@@ -9,9 +9,9 @@ define('ACCESS', dirname($_SERVER['SCRIPT_NAME']) . 'assets/');
 // define('ACCESS', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR);
 // define('SCRIPTS', dirname($_SERVER['SCRIPT_NAME']) . DIRECTORY_SEPARATOR);
 define('DB_NAME', 'wicookin');
-define('DB_HOST', 'localhost:3307');
+define('DB_HOST', 'localhost:49215');
 define('DB_USER', 'root');
-define('DB_PWD', '');
+define('DB_PWD', 'Wicookin2023@root');
 
 $router = new Router($_GET['url']);
 
@@ -22,8 +22,6 @@ $router->post('/register', 'App\Controllers\UserController@registerPost');
 
 $router->get('/login', 'App\Controllers\UserController@login');
 $router->post('/login', 'App\Controllers\UserController@loginPost');
-
-$router->get('/dashboard', 'App\Controllers\UserController@dashboard');
 
 $router->get('/logout', 'App\Controllers\UserController@logout');
 
