@@ -1601,3 +1601,11 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+
+.icon-large {
+  font-size: 24px;
+}
+.icon-xlarge {
+  font-size: 36px;
+}

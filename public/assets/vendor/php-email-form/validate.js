@@ -79,7 +79,7 @@
 
   function displayError(thisForm, error) {
     thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.error-message').innerHTML = "Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer plus tard."";
+    thisForm.querySelector('.error-message').innerHTML = "Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer plus tard.";
     thisForm.querySelector('.error-message').classList.add('d-block');
   }
 

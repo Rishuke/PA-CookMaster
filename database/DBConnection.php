@@ -4,7 +4,8 @@ namespace Database;
 
 use PDO;
 
-class DBConnection {
+class DBConnection
+{
 
     private $dbname;
     private $host;

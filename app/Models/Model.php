@@ -5,7 +5,8 @@ namespace App\Models;
 use PDO;
 use Database\DBConnection;
 
-abstract class Model {
+abstract class Model
+{
 
     protected $db;
     protected $table;
@@ -70,7 +71,8 @@ abstract class Model {
         if (
             strpos($sql, 'DELETE') === 0
             || strpos($sql, 'UPDATE') === 0
-            || strpos($sql, 'INSERT') === 0) {
+            || strpos($sql, 'INSERT') === 0
+        ) {
 
             $stmt = $this->db->getPDO()->$method($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
@@ -88,5 +90,10 @@ abstract class Model {
             $stmt->execute($param);
             return $stmt->$fetch();
         }
+    }
+
+    public function generateToken(): string
+    {
+        return bin2hex(random_bytes(30));
     }
 }

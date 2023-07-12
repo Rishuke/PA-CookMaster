@@ -2,7 +2,8 @@
 
 namespace App\Validation;
 
-class Validator {
+class Validator
+{
 
     private $data;
     private $errors;
@@ -62,6 +63,4 @@ class Validator {
     {
         return $this->errors;
     }
-
-    
 }

@@ -2,144 +2,142 @@
 
 namespace App\Controllers;
 
+use Exception;
 use App\Models\User;
-use App\Validation\Validator;
+use App\Models\Address;
 
 
-class UserController extends Controller {
 
-    public function register()
-    {
-       
-        return $this->view('auth.register');
-    }
+class UserController extends Controller
+{
 
-    public function registerPost()
-    {
-        $validator = new Validator($_POST);
-        $validator->validate([
-            'lastname' => ['required'],
-            'firstname' => ['required'],
-            'gender' => ['required'],
-            'status' => ['required'],
-            'phonenumber' => ['required'],
-            'birth_date' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:6']
-        ]);
-    
-        if ($validator->hasErrors()) {
-            $_SESSION['errors'] = $validator->getErrors();
-            return header('Location: /register');
-        }
-    
-        // Vérification de la photo de profil
-        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-            $allowedFormats = ['jpeg', 'jpg', 'png', 'gif'];
-            $maxFileSize = 2 * 1024 * 1024; // 2 Mo
-    
-            if ($_FILES['profile_image']['size'] > $maxFileSize) {
-                $_SESSION['errors'][] = ['profile_image' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'];
-                return header('Location: /register');
-            }
-    
-            $fileInfo = pathinfo($_FILES['profile_image']['name']);
-            $fileExtension = strtolower($fileInfo['extension']);
-    
-            if (!in_array($fileExtension, $allowedFormats)) {
-                $_SESSION['errors'][] = ['profile_image' => 'Le format de l\'image doit être JPEG, JPG, PNG ou GIF.'];
-                return header('Location: /register');
-            }
-    
-                // Déplace le fichier téléchargé vers le répertoire souhaité
-            $uploadDirectory = ACCESS . 'uploads/';
-            $uploadedFileName = uniqid() . '.' . $fileExtension;
-            $uploadedFilePath = $uploadDirectory . $uploadedFileName;
-
-            if (!is_dir($uploadDirectory)) {
-                mkdir($uploadDirectory, 0777, true);
-            }
-
-            if (!move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadedFilePath)) {
-                $_SESSION['errors'][] = ['profile_image' => 'Erreur lors du téléchargement de l\'image. Veuillez réessayer.'];
-                return header('Location: /register');
-            }
-
-            // Ajoute le chemin de l'image au tableau des données $_POST
-            $_POST['profile_image'] = $uploadedFileName;
-        }
-        $user = new User($this->getDB());
-    
-        $existingEmail = $user->getByEmail($_POST['email']);
-    
-        if ($existingEmail) {
-            $_SESSION['errors'][] = ['email' => 'Cette adresse e-mail est déjà utilisée.'];
-            return header('Location: /register');
-        }
-    
-        $user->register($_POST);
-    
-        return header('Location: /login');
-    }
-    
-
-    
-    public function login()
-    {
-        return $this->view('auth.login');
-    }
-
-    public function loginPost()
-    {
-        $validator = new Validator($_POST);
-        $validator->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ]);
-
-        if ($validator->hasErrors()) {
-            $_SESSION['errors'] = $validator->getErrors();
-            return header('Location: /login');
-        }
-
-        $user = new User($this->getDB());
-        $authenticatedUser = $user->authenticate($_POST['email'], $_POST['password']);
-
-        if (!$authenticatedUser) {
-            $_SESSION['errors'][] = ['credentials' => 'Les informations d\'identification sont incorrectes.'];
-            return header('Location: /login');
-        }
-
-        // Authentification réussie, enregistrer les détails de l'utilisateur dans la session
-        $_SESSION['user'] = [
-            'id' => $authenticatedUser->id,
-            'email' => $authenticatedUser->email,
-            // ... autres détails de l'utilisateur ...
-        ];
-
-        return header('Location: /dashboard');
-    }
-    
-
-    public function logout()
-    {
-        session_destroy();
-
-        return header('Location: /');
-    }
-
-
-    public function dashboard()
+    public function profile()
     {
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user'])) {
             return header('Location: /login');
         }
 
-        // L'utilisateur est connecté, afficher la vue du dashboard
-        return $this->view('home.dashboard');
+        $userModel = new User($this->getDB());
+        $users = $userModel->getUserById($_SESSION['user']['id']);
+
+        // $addresses = null; // Initialiser $addresses à null
+        if ($_SESSION['user']['addresses_id']) {
+
+            $addressModel = new Address($this->getDB());
+            $addresses = $addressModel->getAddressById($_SESSION['user']['addresses_id']);
+        }
+
+        return $this->view('home.profile', compact('users', 'addresses'));
     }
-    
-    
-    
+
+    public function editProfile()
+    {
+        // Récupérer les valeurs du formulaire
+        $lastname = $_POST['lastname'];
+        $firstname = $_POST['firstname'];
+        $rue = $_POST['rue'];
+        $postal_code = $_POST['postal_code'];
+        $city = $_POST['city'];
+        $country = $_POST['country'];
+        $phonenumber = $_POST['phonenumber'];
+        $email = $_POST['email'];
+
+        // ...
+
+        // Mettre à jour les informations de l'utilisateur
+        $user = new User($this->getDB());
+        $userId = $_SESSION['user']['id'];
+        $userAddressId = $_SESSION['user']['addresses_id'];
+
+
+        $addressData = [
+            'street' => $rue,
+            'postal_code' => $postal_code,
+            'city' => $city,
+            'country' => $country,
+        ];
+
+        if (is_null($userAddressId)) {
+
+            $addressModel = new Address($this->getDB());
+            $addressModel->create($addressData);
+            $userAddressId = $addressModel->getLastId();
+
+            var_dump($userAddressId);
+        }
+
+        // Mettre à jour les informations de l'utilisateur
+        $userData = [
+            'lastname' => $lastname,
+            'firstname' => $firstname,
+            'phonenumber' => $phonenumber,
+            'email' => $email,
+            'addresses_id' => $userAddressId
+        ];
+
+        // Mettre à jour l'adresse de l'utilisateur
+        $addressModel = new Address($this->getDB());
+
+
+        $addressModel->update($userAddressId, $addressData);
+        $user->update($userId, $userData);
+
+        // $_SESSION['user'] = [
+
+        //     'email' => $email,
+        //     'firstname' => $firstname,
+        //     'lastname' => $lastname,
+        //     'phonenumber' => $phonenumber,
+        //     'addresses_id' => $userAddressId
+
+        //     // ... autres détails de l'utilisateur ...
+        // ];
+
+
+        // Rediriger vers la page de profil ou afficher un message de succès
+        header('Location: /profile');
+        exit();
+    }
+
+
+
+
+    public function changePassword()
+    {
+        // Récupérer les valeurs du formulaire
+        $currentPassword = $_POST['currentPassword'];
+        $newPassword = $_POST['newPassword'];
+        $confirmPassword = $_POST['confirmPassword'];
+
+
+        // Vérifier la correspondance du mot de passe actuel
+        $user = new User($this->getDB());
+        $authenticatedUser = $user->authenticate($_SESSION['user']['email'], $currentPassword);
+
+        if (!$authenticatedUser) {
+            // Mot de passe actuel incorrect, afficher un message d'erreur
+            $_SESSION['errors'][] = ['currentPassword' => 'Le mot de passe actuel est incorrect.'];
+            header('Location: /profile');
+            exit();
+        }
+
+
+        if ($newPassword !== $confirmPassword) {
+            $_SESSION['errors'][] = ['confirmPassword' => 'Les mots de passe ne correspondent pas.'];
+            header('Location: /profile');
+            exit();
+        }
+
+
+        // Mettre à jour le mot de passe
+        $userId = $_SESSION['user']['id'];
+        $user->updatePassword($userId, $newPassword);
+
+        $_SESSION['success'][] = ['password' => 'Votre mot de passe a été changé avec succès.'];
+
+        // Rediriger vers la page de profil ou afficher un message de succès
+        header('Location: /profile');
+        exit();
+    }
 }

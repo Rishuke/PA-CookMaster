@@ -1,1 +1,1 @@
-<?='Vous êtes connecté !'?>
+<?= 'Vous êtes connecté !' ?>

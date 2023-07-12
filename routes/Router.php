@@ -4,7 +4,8 @@ namespace Router;
 
 use App\Exceptions\NotFoundException;
 
-class Router {
+class Router
+{
 
     public $url;
     public $routes = [];

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Exception;
 use Database\DBConnection;
 
-class User extends Model {
+class User extends Model
+{
 
     protected $table = 'members';
 
@@ -15,27 +17,33 @@ class User extends Model {
         $user = [
             'lastname' => $data['lastname'],
             'firstname' => $data['firstname'],
-            'gender' => $data['gender'],
-            'status' => $data['status'],
-            'phonenumber' => $data['phonenumber'],
-            'birth_date' => $data['birth_date'],
+            'gender' => isset($data['gender']) ? $data['gender'] : '',
+            'type' => $data['type'],
+            'phonenumber' => isset($data['phonenumber']) ? $data['phonenumber'] : '',
+            'date_of_birth' => isset($data['date_of_birth']) ? date('Y-m-d', strtotime($data['date_of_birth'])) : '',
             'email' => $data['email'],
             'password' => $hashedPassword,
-            'profile_image' => isset($data['profile_image']) ? $data['profile_image'] : 'pp_neutre.jpg'
+            'profile_picture' => isset($data['profile_picture']) ? $data['profile_picture'] : ''
         ];
 
         return $this->create($user);
     }
 
-    public function getByEmail(string $email): ?User
-{
-    $result = $this->query("SELECT * FROM {$this->table} WHERE email = ?", [$email], true);
-    return $result ?: null;
-}
-
-public function authenticate(string $email, string $password): ?User
+    public function getuserByEmail(string $email): ?User
     {
-        $user = $this->getByEmail($email);
+        $result = $this->query("SELECT * FROM {$this->table} WHERE email = ?", [$email], true);
+        return $result ?: null;
+    }
+
+    public function getUserById(int $id)
+    {
+        $result = $this->query("SELECT * FROM {$this->table} WHERE id = ?", [$id]);
+        return $result;
+    }
+
+    public function authenticate(string $email, string $password): ?User
+    {
+        $user = $this->getUserByEmail($email);
 
         if (!$user) {
             return null;
@@ -50,5 +58,24 @@ public function authenticate(string $email, string $password): ?User
         return $user;
     }
 
-    
+    public function updatePassword(int $userId, string $newPassword)
+    {
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $this->query("UPDATE {$this->table} SET password = ? WHERE id = ?", [$hashedPassword, $userId]);
+    }
+
+
+    public function confirm($email, $token)
+    {
+        // Vérifier si l'utilisateur avec l'e-mail et le token donnés existe
+        $userQuery = $this->query("SELECT * FROM {$this->table} WHERE email = ? AND registry_token = ?", [$email, $token]);
+        if ($userQuery) {
+            // Si l'utilisateur existe, confirmez l'utilisateur et réinitialisez le token
+            $this->query("UPDATE {$this->table} SET confirm = 1, registry_token = NULL WHERE email = ? AND registry_token = ?", [$email, $token]);
+        } else {
+            // Si l'utilisateur n'existe pas, renvoyez une erreur
+            throw new Exception("Invalid token or email");
+        }
+    }
 }

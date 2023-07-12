@@ -1,19 +1,21 @@
 {
-    "name": "spero/wicookin",
-    "autoload": {
-        "psr-4": {
-            "Spero\\Wicookin\\": "src/",
-            "Router\\": "routes/",
-            "App\\": "app/",
-            "Database\\": "database/"
-
-        }
-    },
-    "authors": [
-        {
-            "name": "Spero Kotin",
-            "email": "kotin.spero98@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "spero/wicookin",
+  "autoload": {
+    "psr-4": {
+      "Spero\\Wicookin\\": "src/",
+      "Router\\": "routes/",
+      "App\\": "app/",
+      "Database\\": "database/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Spero Kotin",
+      "email": "kotin.spero98@gmail.com"
+    }
+  ],
+  "require": {
+    "stripe/stripe-php": "^10.16",
+    "phpmailer/phpmailer": "^6.8"
+  }
 }
