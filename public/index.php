@@ -15,7 +15,7 @@ define('STRIPE_PUBLISHABLE_KEY', 'pk_test_51NBWfmJnaR8BBMgbad4VfLRnnTybklrQGI60d
 define('STRIPE_SUCCESS_URL', 'http://wicookin_web_app.test/payment/success'); //Payment success URL 
 define('STRIPE_CANCEL_URL', 'http://wicookin_web_app.test/payment/cancel'); //Payment cancel URL 
 
-define('DB_NAME', 'wicookin');
+define('DB_NAME', 'wicookin_preprod');
 define('DB_HOST', '51.75.200.114:3307');
 define('DB_USER', 'debian');
 define('DB_PWD', 'Wicookin2023');

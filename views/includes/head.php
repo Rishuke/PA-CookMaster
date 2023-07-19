@@ -26,7 +26,8 @@
   <!-- Template Main CSS File -->
   <link href="<?= ACCESS ?>css/style.css" rel="stylesheet">
 
-  <script src="https://js.stripe.com/v3/"></script>
+    <!-- Load Stripe.js on your website. -->
+    <script src="https://js.stripe.com/v3/"></script>
 
   <script src="https://kit.fontawesome.com/87014ebace.js" crossorigin="anonymous"></script>
 

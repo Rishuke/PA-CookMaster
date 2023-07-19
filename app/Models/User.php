@@ -23,7 +23,9 @@ class User extends Model
             'date_of_birth' => isset($data['date_of_birth']) ? date('Y-m-d', strtotime($data['date_of_birth'])) : '',
             'email' => $data['email'],
             'password' => $hashedPassword,
-            'profile_picture' => isset($data['profile_picture']) ? $data['profile_picture'] : ''
+            'profile_picture' => isset($data['profile_picture']) ? $data['profile_picture'] : '',
+            'address_id' => isset($data['address_id']) ? $data['address_id'] : '',
+            'register_token' => $data['register_token']
         ];
 
         return $this->create($user);
@@ -69,10 +71,10 @@ class User extends Model
     public function confirm($email, $token)
     {
         // Vérifier si l'utilisateur avec l'e-mail et le token donnés existe
-        $userQuery = $this->query("SELECT * FROM {$this->table} WHERE email = ? AND registry_token = ?", [$email, $token]);
+        $userQuery = $this->query("SELECT * FROM {$this->table} WHERE email = ? AND register_token = ?", [$email, $token]);
         if ($userQuery) {
             // Si l'utilisateur existe, confirmez l'utilisateur et réinitialisez le token
-            $this->query("UPDATE {$this->table} SET confirm = 1, registry_token = NULL WHERE email = ? AND registry_token = ?", [$email, $token]);
+            $this->query("UPDATE {$this->table} SET confirm = 1, register_token = NULL WHERE email = ? AND register_token = ?", [$email, $token]);
         } else {
             // Si l'utilisateur n'existe pas, renvoyez une erreur
             throw new Exception("Invalid token or email");

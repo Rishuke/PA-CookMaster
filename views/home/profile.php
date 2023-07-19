@@ -10,9 +10,9 @@
       </nav> -->
   </div><!-- End Page Title -->
 
-  <!-- <?= var_dump($params) ?> -->
 
-  <!-- <?= var_dump($_SESSION['user']) ?> -->
+
+    <!--   --><?php //= var_dump($_SESSION['user']) ?><!-- -->
   <section class="section profile">
     <div class="row">
       <div class="col-xl-4">
@@ -21,7 +21,7 @@
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
 
-            <?php foreach ($params['users'] as $user) : ?>
+            <?php foreach ($params['infosUser'] as $user) : ?>
               <img src="uploads/<?= $user->profile_picture ? $user->profile_picture : 'pp_neutre.jpg' ?>" alt="Profile" class="rounded-circle">
               <h2><?= $user->firstname . ' ' . $user->lastname ?></h2>
               <h3><?= $user->type ?></h3>
@@ -59,7 +59,7 @@
 
               <div class="tab-pane fade show active profile-overview" id="overview">
                 <h5 class="card-title">Détails de profil</h5>
-                <?php foreach ($params['users'] as $user) : ?>
+                <?php foreach ($params['infosUser'] as $user) : ?>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Nom</div>
                     <div class="col-lg-9 col-md-8"><?= $user->lastname ?></div>
@@ -102,7 +102,7 @@
                   <h5 class="card-title">Adresse</h5>
 
 
-                  <?php foreach ($params['addresses'] as $address) : ?>
+                  <?php foreach ($params['infosUserAddress'] as $address) : ?>
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Rue</div>
                       <div class="col-lg-9 col-md-8">
@@ -113,7 +113,7 @@
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Code postal</div>
                       <div class="col-lg-9 col-md-8">
-                        <?= isset($address->postal_code) ? $address->postal_code : '' ?>
+                        <?= isset($address->zipcode) ? $address->zipcode : '' ?>
                       </div>
                     </div>
 
@@ -178,7 +178,7 @@
                   <div class="row mb-3">
                     <label for="Code" class="col-md-4 col-lg-3 col-form-label">Code Postal</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="postal_code" type="text" class="form-control" id="Address" value="<?= isset($address->postal_code) ? $address->postal_code : '' ?>">
+                      <input name="zipcode" type="text" class="form-control" id="Address" value="<?= isset($address->zipcode) ? $address->zipcode : '' ?>">
                     </div>
                   </div>
 

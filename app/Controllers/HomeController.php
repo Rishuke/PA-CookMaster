@@ -35,11 +35,13 @@ class HomeController extends Controller
 
     public function dashboard()
     {
+        $this->isLogged();
         return $this->view('home.dashboard');
     }
 
     public function subscription()
     {
+        $this->isLogged();
         return $this->view('home.subscription');
     }
 }

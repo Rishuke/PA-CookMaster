@@ -34,27 +34,9 @@ error_reporting(E_ALL);
   <!-- End Hero -->
 
   <main id="main" class="mt-5">
-    <?php if (isset($_SESSION['success'])) : ?>
-      <div class="alert alert-success text-center">
-        <?php foreach ($_SESSION['success'] as $successArray) : ?>
-          <?php foreach ($successArray as $success) : ?>
-            <?php echo $success; ?>
-          <?php endforeach ?>
-        <?php endforeach ?>
+      <div class="message text-center">
+          <?php include('includes/message.php'); ?>
       </div>
-      <?php unset($_SESSION['success']); ?>
-    <?php endif ?>
-
-    <?php if (isset($_SESSION['errors'])) : ?>
-      <div class="alert alert-danger text-center">
-        <?php foreach ($_SESSION['errors'] as $errorArray) : ?>
-          <?php foreach ($errorArray as $error) : ?>
-            <?php echo $error; ?>
-          <?php endforeach ?>
-        <?php endforeach ?>
-      </div>
-      <?php unset($_SESSION['errors']); ?>
-    <?php endif ?>
 
 
     <?= $content ?>

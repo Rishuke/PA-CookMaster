@@ -6,7 +6,7 @@ use Stripe\Stripe;
 
 
 
-class PaymentController extends Controller
+class StripePaymentController extends Controller
 {
 
     public function __construct(private string $clientSecret)

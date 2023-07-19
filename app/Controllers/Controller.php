@@ -46,6 +46,15 @@ abstract class Controller
         }
     }
 
+   protected function isLogged()
+    {
+        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            return true;
+        } else {
+            return header('Location: /login');
+        }
+    }
+
 
     public function sendRegistryMail($email, $token)
     {
@@ -69,9 +78,8 @@ abstract class Controller
         $from = "wicookin.fr@gmail.com";
         $password = "skeaqjqwncfqvvdc";
 
-        $message = "<h1><div style='display:block;text-align:center;'>Bonjour " . $_POST['lastname'] . ",</div></h1>";
+        $message = "<h1><div style='display:block;text-align:center;'>Bonjour " . $_POST['firstname'] . ",</div></h1>";
         $message .= "<h2><div style='display:block;text-align:center;'>Votre compte a été créé avec succès !</div></h2>";
-        $message .= "<p>Votre clé d'identification est : <strong>" . $_POST['registry_token'] . "</strong></div></h3>";
         $message .= "<p>Votre email d'inscription est : " . $to . "</p>";
         $message .= "<p>Vous pouvez vous connecter sur le site.Cliquez sur le lien ci-dessous pour valider votre compte :</p>";
         $message .= "<p><a href='https://wicookin.fr/confirmation?key=" . $token . "&email=" . $to . "'>Confirmer mon compte</a></p>";

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Address;
 use PHPMailer\PHPMailer\PHPMailer;
 use App\Models\User;
 use App\Validation\Validator;
@@ -38,16 +39,14 @@ class AuthController extends Controller
             $maxFileSize = 2 * 1024 * 1024; // 2 Mo
 
             if ($_FILES['profile_picture']['size'] > $maxFileSize) {
-                $_SESSION['errors'][] = ['profile_picture' => 'La taille de l\'image ne doit pas dépasser 2 Mo.'];
-                return header('Location: /register');
+                return header('Location: /register?message=La taille de l\'image ne doit pas dépasser 2 Mo.&type=danger');
             }
 
             $fileInfo = pathinfo($_FILES['profile_picture']['name']);
             $fileExtension = strtolower($fileInfo['extension']);
 
             if (!in_array($fileExtension, $allowedFormats)) {
-                $_SESSION['errors'][] = ['profile_picture' => 'Le format de l\'image doit être JPEG, JPG, PNG ou GIF.'];
-                return header('Location: /register');
+                return header('Location: /register?message=Le format de l\'image n\'est pas autorisé. Seuls les formats jpeg, jpg, png et gif sont autorisés.&type=danger');
             }
 
             // Déplace le fichier téléchargé vers le répertoire souhaité
@@ -60,8 +59,7 @@ class AuthController extends Controller
             }
 
             if (!move_uploaded_file($_FILES['profile_picture']['tmp_name'], $uploadedFilePath)) {
-                $_SESSION['errors'][] = ['profile_picture' => 'Erreur lors du téléchargement de l\'image. Veuillez réessayer.'];
-                return header('Location: /register');
+                return header('Location: /register?message=Erreur lors du téléchargement de l\'image. Veuillez réessayer.&type=danger');
             }
 
             // Ajoute le chemin de l'image au tableau des données $_POST
@@ -72,35 +70,48 @@ class AuthController extends Controller
         $existingEmail = $user->getUserByEmail($_POST['email']);
 
         if ($existingEmail) {
-            $_SESSION['errors'][] = ['email' => 'Cette adresse e-mail est déjà utilisée.'];
-            return header('Location: /register');
+
+            return header('Location: /register?message=Cette adresse e-mail est déjà utilisée.&type=danger');
+
         }
 
-        $token = $user->generateToken();
+        $address = new Address($this->getDB());
 
-        $_POST['registry_token'] = $token;
+        $addressData = [
+            'street' => isset ($_POST['street'])? htmlspecialchars($_POST['street']) : null,
+            'city' => isset ($_POST['city'])? htmlspecialchars($_POST['city']) : null,
+            'zipcode' =>  isset ($_POST['zipcode'])? htmlspecialchars($_POST['zipcode']) : null,
+            'country' => isset ($_POST['country'])? htmlspecialchars($_POST['country']) : null
+        ];
 
-        echo $token;
+        $address->create($addressData);
 
-        var_dump($_POST);
+        // Génération d'un token aléatoire
+
+
+        $_POST['register_token'] = $user->generateToken();
+
+        $_POST['address_id'] = $address->getLastInsertId();
+
+        //var_dump($_POST);
 
 
 
-        $mailSend = $this->sendRegistryMail($_POST['email'], $_POST['registry_token']);
+
+        $mailSend = $this->sendRegistryMail($_POST['email'], $_POST['register_token']);
 
         if (!$mailSend) {
 
-            $user->register($_POST);
             // Redirection vers l'inscription avec un message
-            $_SESSION['errors'][] = ['mail' => 'Le mail n\'a pas été envoyé. Veuillez réessayer.'];
-            header('location: /register');
+            return header('Location: /register?message=Le mail n\'a pas été envoyé. Veuillez réessayer.&type=danger');
+
 
             exit;
         } else {
-
+            $user->register($_POST);
             // Redirection vers l'accueil avec un message
-            $_SESSION['success'][] = ['credentials' => 'Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.'];
-            return header('Location: /login');
+            return header('Location: /register?message=Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter. Un mail d\'activation de votre compte vous a été envoyé.&type=success');
+
             exit;
         }
     }
@@ -132,8 +143,7 @@ class AuthController extends Controller
         $authenticatedUser = $user->authenticate($_POST['email'], $_POST['password']);
 
         if (!$authenticatedUser) {
-            $_SESSION['errors'][] = ['credentials' => 'Les informations d\'identification sont incorrectes.'];
-            return header('Location: /login');
+            return header('Location: /login?message=Les informations d\'identification sont incorrectes.&type=danger');
         }
 
         // Authentification réussie, enregistrer les détails de l'utilisateur dans la session
@@ -147,17 +157,12 @@ class AuthController extends Controller
             'date_of_birth' => $authenticatedUser->date_of_birth,
             'gender' => $authenticatedUser->gender,
             'profile_picture' => $authenticatedUser->profile_picture,
-            'addresses_id' => $authenticatedUser->addresses_id
+            'address_id' => $authenticatedUser->address_id
 
             // ... autres détails de l'utilisateur ...
         ];
 
-
-        $_SESSION['success'][] = ['credentials' => 'Bienvenue ' . $authenticatedUser->firstname . ' ' . $authenticatedUser->lastname . ' !'];
-
-        // $this->view('home.profile', compact('data'));
-
-        return header('Location: /dashboard');
+        return header('Location: /dashboard?message=Bienvenue ' . $authenticatedUser->firstname . ' ' . $authenticatedUser->lastname . ' !&type=success');
     }
 
 
@@ -167,7 +172,7 @@ class AuthController extends Controller
     {
         $user = new User($this->getDB());
         $email = $_GET['email'];
-        $token = $_GET['token'];
+        $token = $_GET['key'];
 
         $user->confirm($email, $token);
 

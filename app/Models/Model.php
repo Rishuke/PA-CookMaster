@@ -21,9 +21,9 @@ abstract class Model
         return $this->query("SELECT * FROM {$this->table} ORDER BY created_at DESC");
     }
 
-    public function findById(int $id): Model
+    public function findById(int $id)
     {
-        return $this->query("SELECT * FROM {$this->table} WHERE id = ?", [$id], true);
+        return $this->query("SELECT * FROM {$this->table} WHERE id = ?", [$id]);
     }
 
     public function create(array $data, ?array $relations = null)
@@ -95,5 +95,14 @@ abstract class Model
     public function generateToken(): string
     {
         return bin2hex(random_bytes(30));
+    }
+
+    public function getLastInsertId()
+    {
+        // Sélectionner la ligne avec l'ID le plus élevé
+        $result = $this->query("SELECT MAX(id) as id FROM {$this->table}");
+
+        // Si la requête a renvoyé un résultat, renvoyer l'ID, sinon renvoyer null
+        return $result ? $result[0]->id : null;
     }
 }

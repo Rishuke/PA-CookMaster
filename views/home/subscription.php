@@ -20,7 +20,7 @@
                         </p>
 
                         <p style="font-size: 13px;">
-                            <em>00.90 €/mois ou 00.00 €/an</em>
+                            <em>00.00 €/mois ou 00.00 €/an</em>
                             <a class="book-a-table-btn scrollto btn ms-1" id="choosePlan" href="/subscription/free">Choisir cet abonnement</a>
                         </p>
 

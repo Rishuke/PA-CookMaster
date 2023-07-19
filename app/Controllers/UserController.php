@@ -19,41 +19,37 @@ class UserController extends Controller
         }
 
         $userModel = new User($this->getDB());
-        $users = $userModel->getUserById($_SESSION['user']['id']);
+        $infosUser = $userModel->findById($_SESSION['user']['id']);
 
-        // $addresses = null; // Initialiser $addresses à null
-        if ($_SESSION['user']['addresses_id']) {
+        $addressModel = new Address($this->getDB());
+        $infosUserAddress = $addressModel->findById($_SESSION['user']['address_id']);
 
-            $addressModel = new Address($this->getDB());
-            $addresses = $addressModel->getAddressById($_SESSION['user']['addresses_id']);
-        }
-
-        return $this->view('home.profile', compact('users', 'addresses'));
+        return $this->view('home.profile', compact('infosUser', 'infosUserAddress'));
     }
 
     public function editProfile()
     {
         // Récupérer les valeurs du formulaire
-        $lastname = $_POST['lastname'];
-        $firstname = $_POST['firstname'];
-        $rue = $_POST['rue'];
-        $postal_code = $_POST['postal_code'];
-        $city = $_POST['city'];
-        $country = $_POST['country'];
-        $phonenumber = $_POST['phonenumber'];
-        $email = $_POST['email'];
+        $lastname = htmlspecialchars($_POST['lastname']);
+        $firstname = htmlspecialchars($_POST['firstname']);
+        $rue = htmlspecialchars($_POST['rue']);
+        $zipcode = htmlspecialchars($_POST['zipcode']);
+        $city = htmlspecialchars($_POST['city']);
+        $country = htmlspecialchars($_POST['country']);
+        $phonenumber = htmlspecialchars($_POST['phonenumber']);
+        $email = htmlspecialchars($_POST['email']);
 
         // ...
 
         // Mettre à jour les informations de l'utilisateur
         $user = new User($this->getDB());
         $userId = $_SESSION['user']['id'];
-        $userAddressId = $_SESSION['user']['addresses_id'];
+        $userAddressId = $_SESSION['user']['address_id'];
 
 
         $addressData = [
             'street' => $rue,
-            'postal_code' => $postal_code,
+            'zipcode' => $zipcode,
             'city' => $city,
             'country' => $country,
         ];
@@ -73,7 +69,7 @@ class UserController extends Controller
             'firstname' => $firstname,
             'phonenumber' => $phonenumber,
             'email' => $email,
-            'addresses_id' => $userAddressId
+            'address_id' => $userAddressId
         ];
 
         // Mettre à jour l'adresse de l'utilisateur
