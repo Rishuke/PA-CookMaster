@@ -13,6 +13,7 @@ class Router
     public function __construct($url)
     {
         $this->url = trim($url, '/');
+        #d
     }
 
     public function get(string $path, string $action)
