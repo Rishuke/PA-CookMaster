@@ -30,15 +30,19 @@ $router->get('/contact', 'App\Controllers\HomeController@contact');
 $router->get('/profile', 'App\Controllers\UserController@profile');
 $router->get('/dashboard', 'App\Controllers\HomeController@dashboard');
 $router->get('/subscription', 'App\Controllers\HomeController@subscription');
-$router->get('/subscription/free', 'App\Controllers\SubscriptionController@free');
-$router->get('/subscription/free/monthly', 'App\Controllers\SubscriptionController@freeMonthly');
-$router->get('/subscription/free/yearly', 'App\Controllers\SubscriptionController@freeYearly');
+//$router->get('/subscription/free', 'App\Controllers\SubscriptionController@free');
+//$router->get('/subscription/free/monthly', 'App\Controllers\SubscriptionController@freeMonthly');
+//$router->get('/subscription/free/yearly', 'App\Controllers\SubscriptionController@freeYearly');
 $router->get('/subscription/starter', 'App\Controllers\SubscriptionController@starter');
 $router->get('/subscription/starter/monthly', 'App\Controllers\SubscriptionController@starterMonthly');
 $router->get('/subscription/starter/yearly', 'App\Controllers\SubscriptionController@starterYearly');
 $router->get('/subscription/master', 'App\Controllers\SubscriptionController@master');
 $router->get('/subscription/master/monthly', 'App\Controllers\SubscriptionController@masterMonthly');
 $router->get('/subscription/master/yearly', 'App\Controllers\SubscriptionController@masterYearly');
+
+
+$router->get('/cart', 'App\Controllers\CartController@cart');
+$router->get('/pay', 'App\Controllers\PaymentController@pay');
 
 $router->get('/payment/success', 'App\Controllers\PaymentController@success');
 $router->get('/payment/cancel', 'App\Controllers\PaymentController@cancel');
