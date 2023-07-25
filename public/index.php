@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 use Router\Router;
 use App\Exceptions\NotFoundException;
 
@@ -7,7 +9,7 @@ require '../vendor/autoload.php';
 
 
 define('VIEWS', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR);
-define('ACCESS', dirname($_SERVER['SCRIPT_NAME']) . 'assets/');
+define('ACCESS', '/assets/');
 
 
 define('STRIPE_API_KEY', 'sk_test_51NBWfmJnaR8BBMgbib2WfoonHENEaOGy623dS669i0S4dsIFxHbb3wkogrn5k2LSPLpxJfScjrWqnTAcWzEWskVR00lKhUi3ri');
@@ -15,7 +17,7 @@ define('STRIPE_PUBLISHABLE_KEY', 'pk_test_51NBWfmJnaR8BBMgbad4VfLRnnTybklrQGI60d
 define('STRIPE_SUCCESS_URL', 'http://wicookin_web_app.test/payment/success'); //Payment success URL 
 define('STRIPE_CANCEL_URL', 'http://wicookin_web_app.test/payment/cancel'); //Payment cancel URL 
 
-define('DB_NAME', 'wicookin_preprod');
+define('DB_NAME', 'wicookin');
 define('DB_HOST', '51.75.200.114:3307');
 define('DB_USER', 'debian');
 define('DB_PWD', 'Wicookin2023');
@@ -25,6 +27,8 @@ $router = new Router($_GET['url']);
 $router->get('/', 'App\Controllers\HomeController@welcome');
 $router->get('/menu', 'App\Controllers\HomeController@menu');
 $router->get('/events', 'App\Controllers\HomeController@events');
+$router->get('/createevent', 'App\Controllers\HomeController@createevents');
+$router->get('/meeting', 'App\Controllers\HomeController@joinmeetings');
 $router->get('/chefs', 'App\Controllers\HomeController@chefs');
 $router->get('/contact', 'App\Controllers\HomeController@contact');
 $router->get('/profile', 'App\Controllers\UserController@profile');

@@ -1,3 +1,29 @@
+<!-- ======= Calendar Section ======= -->
+<section id="calendar-section" class="calendar-section">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Check Our <span>Event Calendar</span></h2>
+      
+    </div>
+    <?php
+   
+    if(isset($_SESSION['user'])&&$_SESSION['user']['type']=='Admin'):
+    ?>
+    <a class="book-a-table-btn scrollto" href="/createevent">Create an event</a>
+    <a class="book-a-table-btn scrollto" href="/register">Formation</a>
+    <a class="book-a-table-btn scrollto" href="/meeting">Join a meeting</a>
+    <br>
+    <br>
+    <?php
+    endif;
+    ?>
+
+    <div id="calendar"></div>
+
+  </div>
+</section>
+
 <!-- ======= Events Section ======= -->
 <section id="events" class="events">
   <div class="container">
@@ -97,6 +123,8 @@
   </div>
 </section>
 <!-- End Events Section -->
+
+
 
 <!-- ======= Book A Table Section ======= -->
 <section id="book-a-table" class="book-a-table">
@@ -230,3 +258,40 @@
   </div>
 </section>
 <!-- End Gallery Section -->
+
+
+<html>
+<head>
+    <title>My Evo Calendar</title>
+    <!-- evo-calendar.css, followed by [theme-name].css (optional) -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/evo-calendar.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/evo-calendar.orange-coral.css"/>
+</head>
+<body>
+    <!-- this is where your calendar goes.. :) -->
+    <div id="calendar"></div>
+
+    <!-- evo-calendar.js, right after jQuery (required) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/assets/js/evo-calendar.js"></script>
+    
+
+
+
+    <script>
+    // initialize your calendar, once the page's DOM is ready
+    $(document).ready(function() {
+        $('#calendar').evoCalendar({
+            theme: 'Orange Coral'
+        })
+        
+    })
+    </script>
+</body>
+</html>
+
+ 
+
+
+
+

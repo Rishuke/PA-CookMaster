@@ -22,6 +22,16 @@ class HomeController extends Controller
         return $this->view('home.events');
     }
 
+    public function createevents()
+    {
+        return $this->view('home.createevent');
+    }
+
+    public function joinmeetings()
+    {
+        return $this->view('home.meeting');
+    }
+
     public function chefs()
     {
         return $this->view('home.chefs');

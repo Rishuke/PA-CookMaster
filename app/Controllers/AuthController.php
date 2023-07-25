@@ -162,7 +162,8 @@ class AuthController extends Controller
             // ... autres détails de l'utilisateur ...
         ];
 
-        return header('Location: /dashboard?message=Bienvenue ' . $authenticatedUser->firstname . ' ' . $authenticatedUser->lastname . ' !&type=success');
+        //return header('Location: /dashboard?message=Bienvenue ' . $authenticatedUser->firstname . ' ' . $authenticatedUser->lastname . ' !&type=success');
+        return header('Location: /');
     }
 
 
